@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demonstração do Projeto — Brinquedo Sensorial Modular (TEA)</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #2563eb;
+      --accent-soft: #eff6ff;
+      --green: #15803d;
+      --green-soft: #f0fdf4;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.8rem 1.25rem;
+    }
+
+    .nav-wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 0.98rem;
+      color: var(--text);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    header {
+      padding: 2.5rem 0 1.5rem;
+    }
+
+    .hero-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+    }
+
+    .pill {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-size: clamp(1.7rem, 3.5vw, 2.35rem);
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-text {
+      color: var(--muted);
+      max-width: 780px;
+      margin-bottom: 1.25rem;
+    }
+
+    .modalidade-banner {
+      background: var(--green-soft);
+      border: 1px solid #bbf7d0;
+      color: var(--green);
+      border-radius: 10px;
+      padding: 0.9rem 1.1rem;
+      font-size: 0.94rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+
+    section {
+      padding: 2rem 0;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .sec-sub {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .grid-animais {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.15rem;
+    }
+
+    .animal-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .animal-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mini-tag {
+      font-size: 0.72rem;
+      background: #f1f5f9;
+      color: var(--muted);
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .pair-imgs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+    }
+
+    .img-box {
+      text-align: center;
+    }
+
+    .img-box img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #f1f5f9;
+      display: block;
+    }
+
+    .img-box span {
+      display: block;
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    .grid-comb {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .comb-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.85rem;
+      text-align: center;
+    }
+
+    .comb-card img {
+      width: 100%;
+      height: 155px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #f1f5f9;
+      display: block;
+      margin-bottom: 0.55rem;
+    }
+
+    .comb-card strong {
+      font-size: 0.92rem;
+      display: block;
+    }
+
+    .comb-card span {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.15rem;
+    }
+
+    .info-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .info-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem 3rem;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-wrap">
+      <div class="brand">Brinquedo Sensorial TEA · Demonstração</div>
+      <div class="nav-links">
+        <a href="#animais">Montado e Desmontado</a>
+        <a href="#combinacoes">Combinações (5)</a>
+        <a href="#comercializacao">Juntos ou Separados</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="container">
+    <div class="hero-box">
+      <span class="pill">Projeto de Design · Conceito 3 (Personalização Infantil)</span>
+      <h1>Brinquedo Modular e Personalizável para Crianças com TEA</h1>
+      <p class="hero-text">
+        Demonstração visual do brinquedo modular de animais com peças encaixáveis e intercambiáveis, projetado para respeitar sensibilidades sensoriais, estimular a autonomia, a repetição motora e a imaginação na primeira infância.
+      </p>
+
+      <div class="modalidade-banner">
+        Disponibilidade: os conjuntos e peças podem ser vendidos <strong>juntos</strong> (kits completos ou agrupados) ou <strong>separadamente</strong> (animais avulsos ou peças/módulos individuais conforme a necessidade e o ritmo da criança).
+      </div>
+
+      <div class="meta">
+        <span><strong>Autores:</strong> Charles Kleine, Raquel Ronchi Pereira e Yasmin Heloísa Machado</span>
+        <span><strong>Orientação:</strong> Prof. Renato Valderramas</span>
+        <span><strong>Instituição:</strong> FURB · 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ANIMAIS: MONTADO E DESMONTADO -->
+    <section id="animais">
+      <h2>1. Modelos — Montado e Desmontado</h2>
+      <p class="sec-sub">Visualização de cada animal montado e com as partes modulares separadas.</p>
+
+      <div class="grid-animais">
+        <div class="animal-card">
+          <div class="animal-title"><span>Águia</span><span class="mini-tag">Ave</span></div>
+          <div class="pair-imgs">
+            <div class="img-box"><img src="aguia.jpg" alt="Águia montada"><span>Montada</span></div>
+            <div class="img-box"><img src="aguia desmontada.jpg" alt="Águia desmontada"><span>Desmontada</span></div>
+          </div>
+        </div>
+
+        <div class="animal-card">
+          <div class="animal-title"><span>Coruja</span><span class="mini-tag">Ave</span></div>
+          <div class="pair-imgs">
+            <div class="img-box"><img src="coruja.jpg" alt="Coruja montada"><span>Montada</span></div>
+            <div class="img-box"><img src="coruja desmontada.jpg" alt="Coruja desmontada"><span>Desmontada</span></div>
+          </div>
+        </div>
+
+        <div class="animal-card">
+          <div class="animal-title"><span>Elefante</span><span class="mini-tag">Mamífero</span></div>
+          <div class="pair-imgs">
+            <div class="img-box"><img src="elefante.jpg" alt="Elefante montado"><span>Montado</span></div>
+            <div class="img-box"><img src="elefante desmontado.jpg" alt="Elefante desmontado"><span>Desmontado</span></div>
+          </div>
+        </div>
+
+        <div class="animal-card">
+          <div class="animal-title"><span>Galo</span><span class="mini-tag">Ave</span></div>
+          <div class="pair-imgs">
+            <div class="img-box"><img src="galo.jpg" alt="Galo montado"><span>Montado</span></div>
+            <div class="img-box"><img src="galo desmontado.jpg" alt="Galo desmontado"><span>Desmontado</span></div>
+          </div>
+        </div>
+
+        <div class="animal-card">
+          <div class="animal-title"><span>Girafa</span><span class="mini-tag">Mamífero</span></div>
+          <div class="pair-imgs">
+            <div class="img-box"><img src="girafa.jpg" alt="Girafa montada"><span>Montada</span></div>
+            <div class="img-box"><img src="girafa desmontada.jpg" alt="Girafa desmontada"><span>Desmontada</span></div>
+          </div>
+        </div>
+
+        <div class="animal-card">
+          <div class="animal-title"><span>Jacaré</span><span class="mini-tag">Réptil</span></div>
+          <div class="pair-imgs">
+            <div class="img-box"><img src="jacare.jpg" alt="Jacaré montado"><span>Montado</span></div>
+            <div class="img-box"><img src="jacare desmontado.jpg" alt="Jacaré desmontado"><span>Desmontado</span></div>
+          </div>
+        </div>
+
+        <div class="animal-card">
+          <div class="animal-title"><span>Leão</span><span class="mini-tag">Mamífero</span></div>
+          <div class="pair-imgs">
+            <div class="img-box"><img src="leao.jpg" alt="Leão montado"><span>Montado</span></div>
+            <div class="img-box"><img src="leao desmontado.jpg" alt="Leão desmontado"><span>Desmontado</span></div>
+          </div>
+        </div>
+
+        <div class="animal-card">
+          <div class="animal-title"><span>Lobo</span><span class="mini-tag">Mamífero</span></div>
+          <div class="pair-imgs">
+            <div class="img-box"><img src="lobo.jpg" alt="Lobo montado"><span>Montado</span></div>
+            <div class="img-box"><img src="lobo desmontado.jpg" alt="Lobo desmontado"><span>Desmontado</span></div>
+          </div>
+        </div>
+
+        <div class="animal-card">
+          <div class="animal-title"><span>Morcego</span><span class="mini-tag">Mamífero</span></div>
+          <div class="pair-imgs">
+            <div class="img-box"><img src="morcego.jpg" alt="Morcego montado"><span>Montado</span></div>
+            <div class="img-box"><img src="morcego desmontado.jpg" alt="Morcego desmontado"><span>Desmontado</span></div>
+          </div>
+        </div>
+
+        <div class="animal-card">
+          <div class="animal-title"><span>Sapo</span><span class="mini-tag">Anfíbio</span></div>
+          <div class="pair-imgs">
+            <div class="img-box"><img src="sapo.jpg" alt="Sapo montado"><span>Montado</span></div>
+            <div class="img-box"><img src="sapo desmontado.jpg" alt="Sapo desmontado"><span>Desmontado</span></div>
+          </div>
+        </div>
+
+        <div class="animal-card">
+          <div class="animal-title"><span>Tartaruga</span><span class="mini-tag">Réptil</span></div>
+          <div class="pair-imgs">
+            <div class="img-box"><img src="tartaruga.jpg" alt="Tartaruga montada"><span>Montada</span></div>
+            <div class="img-box"><img src="tartaruga desmontada.jpg" alt="Tartaruga desmontada"><span>Desmontado</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 COMBINAÇÕES -->
+    <section id="combinacoes">
+      <h2>2. Combinações Modulares</h2>
+      <p class="sec-sub">Exemplos de montagens formadas pela troca de peças entre diferentes animais.</p>
+
+      <div class="grid-comb">
+        <div class="comb-card">
+          <img src="combinacao1.jpg" alt="Combinação 1">
+          <strong>Combinação 1</strong>
+          <span>Montagem híbrida</span>
+        </div>
+        <div class="comb-card">
+          <img src="combinacao2.jpg" alt="Combinação 2">
+          <strong>Combinação 2</strong>
+          <span>Montagem híbrida</span>
+        </div>
+        <div class="comb-card">
+          <img src="combinacao3.jpg" alt="Combinação 3">
+          <strong>Combinação 3</strong>
+          <span>Montagem híbrida</span>
+        </div>
+        <div class="comb-card">
+          <img src="combinacao4.jpg" alt="Combinação 4">
+          <strong>Combinação 4</strong>
+          <span>Montagem híbrida</span>
+        </div>
+        <div class="comb-card">
+          <img src="combinacao5.jpg" alt="Combinação 5">
+          <strong>Combinação 5</strong>
+          <span>Montagem híbrida</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- VENDA CONJUNTA OU SEPARADA -->
+    <section id="comercializacao">
+      <h2>3. Venda Conjunta ou Separada</h2>
+      <p class="sec-sub">Flexibilidade de aquisição para famílias, terapeutas e escolas.</p>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Conjuntos Completos (Juntos)</h3>
+          <p>
+            Permitem montar e combinar múltiplos animais logo de início, ampliando as possibilidades de encaixe, criação e exploração tátil.
+          </p>
+        </div>
+        <div class="info-card">
+          <h3>Itens Avulsos (Separadamente)</h3>
+          <p>
+            Permitem adquirir animais ou peças separadas, facilitando a introdução gradual de estímulos sensoriais e tornando a compra mais acessível.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Brinquedo Sensorial Modular para Crianças com TEA · Metodologia de Projeto de Design (2026)
+  </footer>
+
+</body>
+</html>
